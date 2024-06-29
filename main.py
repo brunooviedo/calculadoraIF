@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 
 # Función para formatear números en formato CLP
 def formatear_clp(numero):
-    return f'${numero:,.0f}'.replace(',', '.')
+    return f'${int(numero):,}'.replace(',', '.')
 
 # Título de la aplicación
 st.title('Calculadora de Libertad Financiera')
