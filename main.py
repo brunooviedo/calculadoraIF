@@ -32,7 +32,7 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     años = np.arange(1, 101)
     capital = np.zeros(100)
     capital_inflacion = np.zeros(100)
-    for i in range(100):
+    for i in range(130):
         if i == 0:
             capital[i] = monto_inicial + aporte_mensual * 12
             capital_inflacion[i] = capital[i]
