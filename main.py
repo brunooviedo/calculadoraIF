@@ -50,15 +50,20 @@ años, capital, capital_inflacion, años_necesarios = calcular_libertad_financie
 # Mostrar resultados
 st.subheader('Resultados')
 if currency == 'CLP':
-    st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente, comienzas con un monto inicial de {formatear_clp(monto_inicial)} {currency},  con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}%  y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%,  alcanzarás tu objetivo de libertad financiera de {formatear_clp(monto_objetivo)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
+    st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente, comienzas con un monto inicial de {formatear_clp(monto_inicial)} {currency}, con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {formatear_clp(monto_objetivo)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
 else:
-    st.write(f'Si aportas   {aporte_mensual:.2f}  {currency}   mensualmente, comienzas con un monto inicial de  {monto_inicial:.2f}  {currency}, con una tasa de retorno anual del  {tasa_retorno_anual*100:.2f}%  y una tasa de inflación anual del  {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {monto_objetivo:.2f} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
+    st.write(f'Si aportas {aporte_mensual:.2f} {currency} mensualmente, comienzas con un monto inicial de {monto_inicial:.2f} {currency}, con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {monto_objetivo:.2f} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
 
 # Graficar resultados
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=años, y=capital, mode='lines', name='Capital acumulado (nominal)'))
 fig.add_trace(go.Scatter(x=años, y=capital_inflacion, mode='lines', name='Capital acumulado (ajustado por inflación)'))
 fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
+
+# Añadir anotación con icono cuando se alcanza la libertad financiera
+fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesarios-1],
+                   text="🚀", showarrow=True, arrowhead=2, ax=-30, ay=-30)
+
 fig.update_layout(
     title='Crecimiento del Capital a lo Largo del Tiempo',
     xaxis_title='Años',
