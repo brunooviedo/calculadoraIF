@@ -12,7 +12,7 @@ st.title('Calculadora de Libertad Financiera')
 
 # Entrada de datos
 st.sidebar.header('Parámetros de entrada')
-currency = st.sidebar.selectbox('Selecciona la moneda', ['USD', 'CLP', 'EUR'])
+currency = 'CLP'  # Establecer CLP como moneda por defecto
 
 # Entrada del monto inicial
 monto_inicial = st.sidebar.number_input(f'Monto inicial ({currency})', min_value=0.0, value=0.0, step=5000.0)
@@ -49,10 +49,7 @@ años, capital, capital_inflacion, años_necesarios = calcular_libertad_financie
 
 # Mostrar resultados
 st.subheader('Resultados')
-if currency == 'CLP':
-    st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente, comienzas con un monto inicial de {formatear_clp(monto_inicial)} {currency}, con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {formatear_clp(monto_objetivo)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
-else:
-    st.write(f'Si aportas {aporte_mensual:.2f} {currency} mensualmente, comienzas con un monto inicial de {monto_inicial:.2f} {currency}, con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {monto_objetivo:.2f} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
+st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente, comienzas con un monto inicial de {formatear_clp(monto_inicial)} {currency}, con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {formatear_clp(monto_objetivo)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
 
 # Graficar resultados
 fig = go.Figure()
