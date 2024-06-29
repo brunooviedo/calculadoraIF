@@ -2,10 +2,10 @@
 import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
-import locale
 
-# Establecer la configuración regional para CLP
-locale.setlocale(locale.LC_ALL, 'es_CL.UTF-8')
+# Función para formatear números en formato CLP
+def formatear_clp(numero):
+    return f'${numero:,.0f}'.replace(',', '.')
 
 # Título de la aplicación
 st.title('Calculadora de Libertad Financiera')
@@ -41,7 +41,7 @@ años, capital, capital_inflacion, años_necesarios = calcular_libertad_financie
 # Mostrar resultados
 st.subheader('Resultados')
 if currency == 'CLP':
-    st.write(f'Si aportas {locale.format_string("%,.0f", aporte_mensual, grouping=True)} {currency} mensualmente con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {locale.format_string("%,.0f", monto_objetivo, grouping=True)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
+    st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {formatear_clp(monto_objetivo)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
 else:
     st.write(f'Si aportas {aporte_mensual:.2f} {currency} mensualmente con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {monto_objetivo:.2f} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación).')
 
