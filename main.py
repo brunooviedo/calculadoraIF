@@ -69,9 +69,9 @@ fig.add_trace(go.Scatter(x=años, y=capital, mode='lines', name='Capital acumula
 fig.add_trace(go.Scatter(x=años, y=capital_inflacion, mode='lines', name='Capital acumulado (ajustado por inflación)'))
 fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
 
-# Añadir anotación con icono cuando se alcanza la libertad financiera
+# Añadir anotación con icono de fiesta cuando se alcanza la libertad financiera
 fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesarios-1],
-                   text="🚀", showarrow=True, arrowhead=2, ax=-30, ay=-30)
+                   text="🎉", showarrow=True, arrowhead=2, ax=-30, ay=-30)
 
 fig.update_layout(
     title='Crecimiento del Capital a lo Largo del Tiempo',
