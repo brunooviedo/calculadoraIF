@@ -7,6 +7,18 @@ import plotly.graph_objects as go
 def formatear_clp(numero):
     return f'${int(numero):,}'.replace(',', '.')
 
+# Función para formatear números en formato de miles o millones
+def formatear_miles_millones(numero):
+    if currency == 'CLP':
+        if numero >= 1000000:
+            return f'{int(numero / 1000000):,.0f}M'
+        elif numero >= 1000:
+            return f'{int(numero / 1000):,.0f}K'
+        else:
+            return f'{int(numero):,.0f}'
+    else:
+        return f'{numero:.2f}'
+
 # Título de la aplicación
 st.title('Calculadora de Libertad Financiera')
 
@@ -15,17 +27,17 @@ st.sidebar.header('Parámetros de entrada')
 currency = 'CLP'  # Establecer CLP como moneda por defecto
 
 # Entrada del monto inicial
-monto_inicial = st.sidebar.number_input(f'Monto inicial ({currency})', min_value=0.0, value=0.0, step=5000.0)
+monto_inicial = st.sidebar.number_input(f'Monto inicial ({currency})', min_value=0.0, value=0.0, step=5000.0, format='%f')
 
 # Entrada del aporte mensual
-aporte_mensual = st.sidebar.number_input(f'Aporte mensual ({currency})', min_value=0.0, value=500.0, step=50.0)
+aporte_mensual = st.sidebar.number_input(f'Aporte mensual ({currency})', min_value=0.0, value=500.0, step=50.0, format='%f')
 
 # Entrada de tasas de retorno e inflación
 tasa_retorno_anual = st.sidebar.slider('Tasa de retorno anual (%)', min_value=0.0, max_value=20.0, value=7.0, step=0.1) / 100
 tasa_inflacion_anual = st.sidebar.slider('Tasa de inflación anual (%)', min_value=0.0, max_value=10.0, value=2.0, step=0.1) / 100
 
 # Entrada del monto objetivo
-monto_objetivo = st.sidebar.number_input(f'Monto objetivo para la libertad financiera ({currency})', min_value=0.0, value=1000000.0, step=50000.0)
+monto_objetivo = st.sidebar.number_input(f'Monto objetivo para la libertad financiera ({currency})', min_value=0.0, value=1000000.0, step=50000.0, format='%f')
 
 # Simulación del crecimiento del capital
 def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo):
