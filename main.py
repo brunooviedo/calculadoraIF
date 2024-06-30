@@ -66,7 +66,7 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     
     # Definir el mensaje de acuerdo a los años restantes
     if años_restantes_vida > 0:
-        mensaje_vida = f"Tendrías aproximadamente <b>{años_restantes_vida:.1f} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera 🎉💰💸 "
+        mensaje_vida = f"Tendrías aproximadamente <b>{años_restantes_vida:.1f} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera 🎉💰💸"
     else:
         mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto 💀⚰️, debido a la esperanza de vida de {esperanza_vida} años en los {sexo.lower()}."
     
@@ -86,7 +86,7 @@ st.markdown(f"""
     {mensaje_vida}</p>
 """, unsafe_allow_html=True)
 
-# Graficar resultados
+# Graficar resultados limitando hasta la edad alcanzada
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital[:años_necesarios], mode='lines', name='Capital acumulado (nominal)'))
 fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital_inflacion[:años_necesarios], mode='lines', name='Capital acumulado (ajustado por inflación)'))
@@ -119,6 +119,9 @@ fig.update_layout(
         borderwidth=1
     )
 )
+
+# Limitar el eje x hasta la edad alcanzada
+fig.update_xaxes(range=[0, años_necesarios])
 
 # Usar use_container_width=True para hacer el gráfico responsive
 st.plotly_chart(fig, use_container_width=True)
