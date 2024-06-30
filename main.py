@@ -75,7 +75,7 @@ años, capital, capital_inflacion, años_necesarios, probabilidad_alcanzar, edad
 esperanza_vida = 80 if sexo == 'Hombre' else 85
 
 # Calcular años restantes de vida esperada
-años_restantes_vida = esperanza_vida - edad_actual
+años_restantes_vida = esperanza_vida - edad_alcanzada
 
 # Mostrar resultados
 st.subheader('Resultados')
