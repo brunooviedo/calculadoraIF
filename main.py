@@ -21,7 +21,7 @@ edad_actual = st.sidebar.number_input('Edad actual', min_value=0, max_value=100,
 sexo = st.sidebar.radio('Sexo', ['Hombre', 'Mujer'])
 
 # Definir la esperanza de vida según el sexo
-if sexo == 'Hombres':
+if sexo == 'Hombre':
     esperanza_vida = 80
 else:
     esperanza_vida = 85
@@ -65,12 +65,14 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     años_restantes_vida = edad_actual - esperanza_vida
     
     # Definir el mensaje de acuerdo a los años restantes
-    # Definir el mensaje de acuerdo a los años restantes
     if años_restantes_vida < 0:
-        mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto ☠️, debido a la esperanza de vida de {esperanza_vida} años en los {sexo} "
+        if sexo == 'Hombre':
+            mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto ☠️, debido a la esperanza de vida de {esperanza_vida} años en los Hombres."
+        else:
+            mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerta ☠️, debido a la esperanza de vida de {esperanza_vida} años en las Mujeres."
     else:
         mensaje_vida = f"Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera. 🎉"
-        
+    
     return años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida
 
 
