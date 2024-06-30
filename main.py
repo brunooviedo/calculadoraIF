@@ -2,6 +2,8 @@
 import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
+# Importar el módulo de formulario de Streamlit
+import streamlit as st
 
 # Función para formatear números en formato CLP
 def formatear_clp(numero):
