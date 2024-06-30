@@ -58,24 +58,17 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     años_necesarios = i + 1
     edad_alcanzada = edad_actual + años_necesarios
     
-    # Calcular años restantes esperados de vida
-    años_restantes_vida = esperanza_vida - edad_actual
-    
-    # Calcular probabilidad de alcanzar la libertad financiera ajustada por esperanza de vida
-    if edad_alcanzada <= esperanza_vida:
-        probabilidad_alcanzar = 1.0
-    else:
-        probabilidad_alcanzar = años_restantes_vida / años_necesarios
-    
-    return años[:años_necesarios], capital[:años_necesarios], capital_inflacion[:años_necesarios], años_necesarios, probabilidad_alcanzar, edad_alcanzada
-
-años, capital, capital_inflacion, años_necesarios, probabilidad_alcanzar, edad_alcanzada = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida)
-
-# Calcular la esperanza de vida según el sexo
+   # Calcular la esperanza de vida según el sexo
 esperanza_vida = 80 if sexo == 'Hombre' else 85
 
 # Calcular años restantes de vida esperada
-años_restantes_vida = esperanza_vida - edad_alcanzada
+años_restantes_vida = edad_alcanzada - esperanza_vida
+
+# Definir el mensaje de acuerdo a los años restantes
+if años_restantes_vida < 0:
+    mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto ☠️ y en el ataúd, debido a la esperanza de vida de {esperanza_vida} años."
+else:
+    mensaje_vida = f"Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera. 🎉"
 
 # Mostrar resultados
 st.subheader('Resultados')
@@ -85,8 +78,9 @@ st.markdown(f"""
     con una tasa de retorno anual del <b>{tasa_retorno_anual*100:.2f}%</b> y una tasa de inflación anual del <b>{tasa_inflacion_anual*100:.2f}%</b>,
     alcanzarás tu objetivo de libertad financiera de <b>{formatear_clp(monto_objetivo)} {currency}</b> en aproximadamente <b>{años_necesarios} años</b> (ajustado por inflación).
     Para ese momento, tendrás <b>{edad_alcanzada} años</b> y la probabilidad estimada de alcanzar este objetivo es del <b>{probabilidad_alcanzar*100:.2f}%</b>.
-    Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes una vez alcanzada la Libertad Finaciera. 🎉</p>
+    {mensaje_vida}</p>
 """, unsafe_allow_html=True)
+
 
 
 # Graficar resultados
