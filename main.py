@@ -68,10 +68,10 @@ fig.update_layout(
     title_y=0.9,
     title_xanchor='center',
     title_yanchor='top',
-    title_font=dict(size=24, family='Arial'),
+    title_font=dict(size=15, family='Arial'),
     xaxis_title='Años',
     yaxis_title=f'Monto ({currency})',
-    margin=dict(l=50, r=50, t=100, b=80),  # Ajustar los márgenes
+    margin=dict(l=80, r=50, t=100, b=100),  # Ajustar los márgenes
     legend=dict(
         orientation="h",
         yanchor="bottom",
@@ -91,17 +91,3 @@ st.plotly_chart(fig, use_container_width=True)
 # Mostrar la probabilidad estimada de alcanzar la libertad financiera
 st.subheader('Estimación de Probabilidad')
 st.write(f'Teniendo en cuenta las tasas de retorno e inflación seleccionadas, la probabilidad estimada de alcanzar tu objetivo de libertad financiera en {años_necesarios} años es alta, asumiendo que las condiciones del mercado se mantienen constantes y que los aportes mensuales no cambian. 🎉')
-
-# # Incluir CSS y JavaScript para ajustar la leyenda en dispositivos móviles
-# st.markdown("""
-# <style>
-# @media only screen and (max-width: 600px) {
-#     .plotly-graph-div .legend {
-#         transform: translateY(20px) !important;
-#         position: relative !important;
-#         padding: 10px !important;
-#         margin: 10px !important;
-#     }
-# }
-# </style>
-# """, unsafe_allow_html=True)
