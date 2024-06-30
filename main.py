@@ -58,22 +58,22 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     años_necesarios = i + 1
     edad_alcanzada = edad_actual + años_necesarios
     
-# Calcular la esperanza de vida según el sexo
-esperanza_vida = 80 if sexo == 'Hombre' else 85
-
-# Calcular años restantes de vida esperada
-años_restantes_vida = esperanza_vida - edad_actual
-
-# Mostrar resultados
-st.subheader('Resultados')
-st.markdown(f"""
-    <p>Si aportas <b>{formatear_clp(aporte_mensual)} {currency}</b> mensualmente,
-    y comienzas con un monto inicial de <b>{formatear_clp(monto_inicial)} {currency}</b>,
-    con una tasa de retorno anual del <b>{tasa_retorno_anual*100:.2f}%</b> y una tasa de inflación anual del <b>{tasa_inflacion_anual*100:.2f}%</b>,
-    alcanzarás tu objetivo de libertad financiera de <b>{formatear_clp(monto_objetivo)} {currency}</b> en aproximadamente <b>{años_necesarios} años</b> (ajustado por inflación).
-    Para ese momento, tendrás <b>{edad_alcanzada} años</b> y la probabilidad estimada de alcanzar este objetivo es del <b>{probabilidad_alcanzar*100:.2f}%</b>.
-    Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes. 🎉</p>
-""", unsafe_allow_html=True)
+    # Calcular la esperanza de vida según el sexo
+    esperanza_vida = 80 if sexo == 'Hombre' else 85
+    
+    # Calcular años restantes de vida esperada
+    años_restantes_vida = esperanza_vida - edad_actual
+    
+    # Mostrar resultados
+    st.subheader('Resultados')
+    st.markdown(f"""
+        <p>Si aportas <b>{formatear_clp(aporte_mensual)} {currency}</b> mensualmente,
+        y comienzas con un monto inicial de <b>{formatear_clp(monto_inicial)} {currency}</b>,
+        con una tasa de retorno anual del <b>{tasa_retorno_anual*100:.2f}%</b> y una tasa de inflación anual del <b>{tasa_inflacion_anual*100:.2f}%</b>,
+        alcanzarás tu objetivo de libertad financiera de <b>{formatear_clp(monto_objetivo)} {currency}</b> en aproximadamente <b>{años_necesarios} años</b> (ajustado por inflación).
+        Para ese momento, tendrás <b>{edad_alcanzada} años</b> y la probabilidad estimada de alcanzar este objetivo es del <b>{probabilidad_alcanzar*100:.2f}%</b>.
+        Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes. 🎉</p>
+    """, unsafe_allow_html=True)
 
 
 
