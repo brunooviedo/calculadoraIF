@@ -66,12 +66,9 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     
     # Definir el mensaje de acuerdo a los años restantes
     if años_restantes_vida > 0:
-        mensaje_vida = f"Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera. 🎉"
+        mensaje_vida = f"Tendrías aproximadamente <b>{años_restantes_vida:.1f} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera, pero probablemente no alcances a disfrutarla debido a la esperanza de vida de {esperanza_vida} años en los {sexo.lower()}. 💀⚰️"
     else:
-        if sexo == 'Hombre':
-            mensaje_vida = f"Tendrías aproximadamente <b>{abs(años_restantes_vida)} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera, pero probablemente no alcances a disfrutarla debido a la esperanza de vida de {esperanza_vida} años en los Hombres."
-        else:
-            mensaje_vida = f"Tendrías aproximadamente <b>{abs(años_restantes_vida)} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera, pero probablemente no alcances a disfrutarla debido a la esperanza de vida de {esperanza_vida} años en las Mujeres."
+        mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto 💀⚰️, debido a la esperanza de vida de {esperanza_vida} años en los {sexo.lower()}."
     
     return años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida
 
@@ -95,9 +92,9 @@ fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital[:años_necesarios
 fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital_inflacion[:años_necesarios], mode='lines', name='Capital acumulado (ajustado por inflación)'))
 fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
 
-# Añadir anotación con icono de fiesta cuando se alcanza la libertad financiera
+# Añadir anotación con icono de ataud y calavera cuando se alcanza la libertad financiera
 fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesarios-1],
-                   text="🎉", showarrow=True, arrowhead=2, ax=-30, ay=-30)
+                   text="💀⚰️", showarrow=True, arrowhead=2, ax=-30, ay=-30)
 
 # Ajustar el layout del gráfico incluyendo padding y margin para la leyenda y el título
 fig.update_layout(
