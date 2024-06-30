@@ -1,10 +1,6 @@
-# -*- coding: utf-8 -*-
 import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
-# Importar el módulo de formulario de Streamlit
-import streamlit as st
-# Importar la librería plotly express para gráficos interactivos
 import plotly.express as px
 
 # Función para formatear números en formato CLP
@@ -151,21 +147,6 @@ st.markdown(f"""
     {mensaje_probabilidad}</p>
 """, unsafe_allow_html=True)
 
-
-# Incluir CSS y JavaScript para ajustar la leyenda en dispositivos móviles
-st.markdown("""
-<style>
-@media only screen and (max-width: 600px) {
-    .plotly-graph-div .legend {
-        transform: translateY(20px) !important;
-        position: relative !important;
-        padding: 10px !important;
-        margin: 10px !important;
-    }
-}
-</style>
-""", unsafe_allow_html=True)
-
 # Sección para comparación de escenarios
 st.sidebar.header('Comparación de Escenarios')
 
@@ -176,8 +157,14 @@ tasas_retorno = st.sidebar.slider('Tasas de Retorno Anual (%)', min_value=0.0, m
 # Función para calcular los resultados según los escenarios seleccionados
 def calcular_escenarios(aporte_min, aporte_max, tasa_min, tasa_max):
     # Aquí deberías modificar según tu función actual de cálculo de libertad financiera para considerar diferentes escenarios
-    años_min, capital_min, capital_inflacion_min, _, _, _ = calcular_libertad_financiera(monto_inicial, aporte_min, tasa_min/100, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual)
-    años_max, capital_max, capital_inflacion_max, _, _, _ = calcular_libertad_financiera(monto_inicial, aporte_max, tasa_max/100, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual)
+    años_min, capital_inflacion_min, años_max, capital_inflacion_max = [], [], [], []
+    for aporte, tasa in zip([aporte_min, aporte_max], [tasa_min, tasa_max]):
+        años_min_temp, capital_inflacion_min_temp, _, _ = calcular_libertad_financiera(monto_inicial, aporte, tasa/100, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual)
+        años_max_temp, capital_inflacion_max_temp, _, _ = calcular_libertad_financiera(monto_inicial, aporte, tasa/100, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual)
+        años_min.append(años_min_temp)
+        capital_inflacion_min.append(capital_inflacion_min_temp)
+        años_max.append(años_max_temp)
+        capital_inflacion_max.append(capital_inflacion_max_temp)
     
     return años_min, capital_inflacion_min, años_max, capital_inflacion_max
 
@@ -185,9 +172,9 @@ def calcular_escenarios(aporte_min, aporte_max, tasa_min, tasa_max):
 años_min, capital_inflacion_min, años_max, capital_inflacion_max = calcular_escenarios(niveles_aporte[0], niveles_aporte[1], tasas_retorno[0], tasas_retorno[1])
 
 # Graficar resultados comparativos
-fig_comp = px.line()
-fig_comp.add_scatter(x=años_min + edad_actual, y=capital_inflacion_min, mode='lines', name=f'Aporte: {niveles_aporte[0]}, Retorno: {tasas_retorno[0]}%')
-fig_comp.add_scatter(x=años_max + edad_actual, y=capital_inflacion_max, mode='lines', name=f'Aporte: {niveles_aporte[1]}, Retorno: {tasas_retorno[1]}%')
+fig_comp = go.Figure()
+fig_comp.add_trace(go.Scatter(x=años_min[0] + edad_actual, y=capital_inflacion_min[0], mode='lines', name=f'Aporte: {niveles_aporte[0]}, Retorno: {tasas_retorno[0]}%'))
+fig_comp.add_trace(go.Scatter(x=años_max[1] + edad_actual, y=capital_inflacion_max[1], mode='lines', name=f'Aporte: {niveles_aporte[1]}, Retorno: {tasas_retorno[1]}%'))
 
 # Configurar diseño y estilo del gráfico comparativo
 fig_comp.update_layout(
@@ -205,6 +192,33 @@ fig_comp.update_layout(
     margin=dict(l=80, r=50, t=100, b=100),
     xaxis=dict(
         range=[0, 100]
+    )
+)
+
+# Ajustar el layout del gráfico comparativo
+fig_comp.update_layout(
+    title='Comparación de Escenarios Financieros',
+    title_x=0.5,
+    title_y=0.9,
+    title_xanchor='center',
+    title_yanchor='top',
+    title_font=dict(size=15, family='Arial'),
+    xaxis_title='Edad',
+    yaxis_title=f'Monto ({currency})',
+    margin=dict(l=80, r=50, t=100, b=100),  # Ajustar los márgenes
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=-0.4,  # Ajustar esta posición para centrar verticalmente la leyenda
+        xanchor="center",
+        x=0.5,  # Ajustar esta posición para centrar horizontalmente la leyenda
+        font=dict(size=10),  # Disminuir el tamaño de la fuente
+        bgcolor='rgba(255, 255, 255, 0.5)',
+        bordercolor='Black',
+        borderwidth=1
+    ),
+    xaxis=dict(
+        range=[0, 100]  # Limitar el eje x desde 0 hasta 100 años
     )
 )
 
