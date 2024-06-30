@@ -60,25 +60,20 @@ fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objeti
 fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesarios-1],
                    text="🎉", showarrow=True, arrowhead=2, ax=-30, ay=-30)
 
-# Configurar el diseño del gráfico
+# Configuración del diseño del gráfico
 fig.update_layout(
     title='Crecimiento del Capital',
     xaxis_title='Años',
     yaxis_title=f'Monto ({currency})',
     margin=dict(l=50, r=50, t=80, b=80),  # Ajustar los márgenes superior e inferior
-    legend=dict(
-        orientation="h",
-        yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1
-    ),
-    title_font=dict(
-        size=20,  # Tamaño del título reducido para dispositivos móviles
-        family="Arial, sans-serif",
-        color="black"
-    )
 )
+
+# Obtener el contexto del cliente para determinar el tamaño de la pantalla
+ctx = st.report_thread.get_report_ctx()
+if ctx is not None and ctx.client is not None:
+    if ctx.client.display_mode == 'mobile':
+        # Si estamos en móvil, reducir el tamaño del título
+        fig.update_layout(title_font=dict(size=16))
 
 # Usar use_container_width=True para hacer el gráfico responsive
 st.plotly_chart(fig, use_container_width=True)
