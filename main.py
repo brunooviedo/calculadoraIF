@@ -57,7 +57,7 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     
     return años[:i+1], capital[:i+1], capital_inflacion[:i+1], i+1
 
-años, capital, capital_inflacion, años_necesarios = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo)
+    años, capital, capital_inflacion, años_necesarios = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo)
     
     años_necesarios = i + 1
     
