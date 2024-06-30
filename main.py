@@ -65,7 +65,7 @@ fig.update_layout(
     title='Crecimiento del Capital',
     xaxis_title='Años',
     yaxis_title=f'Monto ({currency})',
-    margin=dict(l=50, r=50, t=80, b=50),  # Ajustar los márgenes
+    margin=dict(l=50, r=50, t=80, b=80),  # Ajustar los márgenes superior e inferior
     legend=dict(
         orientation="h",
         yanchor="bottom",
@@ -74,7 +74,7 @@ fig.update_layout(
         x=1
     ),
     title_font=dict(
-        size=24,  # Tamaño del título
+        size=20,  # Tamaño del título reducido para dispositivos móviles
         family="Arial, sans-serif",
         color="black"
     )
