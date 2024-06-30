@@ -10,6 +10,20 @@ def formatear_clp(numero):
 # Título de la aplicación
 st.title('Calculadora de Libertad Financiera')
 
+# Estilo personalizado para el contenedor del gráfico
+custom_css = """
+<style>
+.plot-container {
+    width: 100%; /* Ancho completo del contenedor */
+    max-width: 800px; /* Ancho máximo ajustable según necesidad */
+    margin: auto; /* Centrado horizontal */
+}
+</style>
+"""
+
+# Insertar el estilo personalizado en la página
+st.markdown(custom_css, unsafe_allow_html=True)
+
 # Entrada de datos
 st.sidebar.header('Parámetros de entrada')
 currency = 'CLP'  # Establecer CLP como moneda por defecto
@@ -51,7 +65,7 @@ años, capital, capital_inflacion, años_necesarios = calcular_libertad_financie
 st.subheader('Resultados')
 st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente, comienzas con un monto inicial de {formatear_clp(monto_inicial)} {currency}, con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {formatear_clp(monto_objetivo)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación). 🎉')
 
-# Graficar resultados
+# Graficar resultados dentro del contenedor personalizado
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=años, y=capital, mode='lines', name='Capital acumulado (nominal)'))
 fig.add_trace(go.Scatter(x=años, y=capital_inflacion, mode='lines', name='Capital acumulado (ajustado por inflación)'))
@@ -67,15 +81,11 @@ fig.update_layout(
     yaxis_title=f'Monto ({currency})',
     legend_title_text='Leyenda',
     margin=dict(l=50, r=50, t=80, b=50),  # Ajustar los márgenes
-    width=None,  # Ajustar el ancho según el contenedor
-    height=None,  # Ajustar la altura según el contenedor
 )
 
 # Usar use_container_width=True para hacer el gráfico responsive
-st.plotly_chart(fig, use_container_width=True)
+st.markdown('<div class="plot-container">{}</div>'.format(fig.to_html()), unsafe_allow_html=True)
 
 # Mostrar la probabilidad estimada de alcanzar la libertad financiera
 st.subheader('Estimación de Probabilidad')
 st.write(f'Teniendo en cuenta las tasas de retorno e inflación seleccionadas, la probabilidad estimada de alcanzar tu objetivo de libertad financiera en {años_necesarios} años es alta, asumiendo que las condiciones del mercado se mantienen constantes y que los aportes mensuales no cambian. 🎉')
-
-# Pregunta de seguimiento relacionada con la optimización de gráficos en dispositivos móviles y tablets
