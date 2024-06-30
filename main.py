@@ -41,10 +41,11 @@ monto_objetivo = st.sidebar.number_input(f'Monto objetivo para la libertad finan
 
 # Simulación del crecimiento del capital
 def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida):
-    años = np.arange(1, 201)  # Extender hasta 200 años como máximo
-    capital = np.zeros(200)   # Extender hasta 200 años como máximo
-    capital_inflacion = np.zeros(200)  # Extender hasta 200 años como máximo
-    for i in range(200):  # Extender hasta 200 años como máximo
+    años = np.arange(1, esperanza_vida - edad_actual + 1)  # Extender hasta la esperanza de vida
+    capital = np.zeros(len(años))
+    capital_inflacion = np.zeros(len(años))
+    
+    for i in range(len(años)):
         if i == 0:
             capital[i] = monto_inicial + aporte_mensual * 12
             capital_inflacion[i] = capital[i]
@@ -56,9 +57,6 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
             break
     
     años_necesarios = i + 1
-    
-    # Calcular la esperanza de vida según el sexo
-    esperanza_vida = 80 if sexo == 'Hombre' else 85
     
     # Calcular años restantes de vida esperada
     edad_alcanzada = edad_actual + años_necesarios
