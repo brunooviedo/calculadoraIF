@@ -70,25 +70,25 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     else:
         mensaje_vida = f"Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera. 🎉"
     
-    # Mostrar resultados
-    st.subheader('Resultados')
-    st.markdown(f"""
-        <p>Si aportas <b>{formatear_clp(aporte_mensual)} {currency}</b> mensualmente,
-        y comienzas con un monto inicial de <b>{formatear_clp(monto_inicial)} {currency}</b>,
-        con una tasa de retorno anual del <b>{tasa_retorno_anual*100:.2f}%</b> y una tasa de inflación anual del <b>{tasa_inflacion_anual*100:.2f}%</b>,
-        alcanzarás tu objetivo de libertad financiera de <b>{formatear_clp(monto_objetivo)} {currency}</b> en aproximadamente <b>{años_necesarios} años</b> (ajustado por inflación).
-        Para ese momento, tendrás <b>{edad_alcanzada} años</b> y la probabilidad estimada de alcanzar este objetivo es del <b>{probabilidad_alcanzar*100:.2f}%</b>.
-        {mensaje_vida}</p>
-    """, unsafe_allow_html=True)
+    return años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida
 
+años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida)
 
-
-
+# Mostrar resultados
+st.subheader('Resultados')
+st.markdown(f"""
+    <p>Si aportas <b>{formatear_clp(aporte_mensual)} {currency}</b> mensualmente,
+    y comienzas con un monto inicial de <b>{formatear_clp(monto_inicial)} {currency}</b>,
+    con una tasa de retorno anual del <b>{tasa_retorno_anual*100:.2f}%</b> y una tasa de inflación anual del <b>{tasa_inflacion_anual*100:.2f}%</b>,
+    alcanzarás tu objetivo de libertad financiera de <b>{formatear_clp(monto_objetivo)} {currency}</b> en aproximadamente <b>{años_necesarios} años</b> (ajustado por inflación).
+    Para ese momento, tendrás <b>{edad_alcanzada} años</b>.
+    {mensaje_vida}</p>
+""", unsafe_allow_html=True)
 
 # Graficar resultados
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=años, y=capital, mode='lines', name='Capital acumulado (nominal)'))
-fig.add_trace(go.Scatter(x=años, y=capital_inflacion, mode='lines', name='Capital acumulado (ajustado por inflación)'))
+fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital[:años_necesarios], mode='lines', name='Capital acumulado (nominal)'))
+fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital_inflacion[:años_necesarios], mode='lines', name='Capital acumulado (ajustado por inflación)'))
 fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
 
 # Añadir anotación con icono de fiesta cuando se alcanza la libertad financiera
@@ -126,7 +126,7 @@ st.plotly_chart(fig, use_container_width=True)
 st.subheader('Estimación de Probabilidad')
 st.markdown(f"""
     <p>Teniendo en cuenta las tasas de retorno e inflación seleccionadas,
-    la probabilidad estimada de alcanzar tu objetivo de libertad financiera en <b>{años_necesarios} años</b> es alta ({probabilidad_alcanzar*100:.2f}%),
+    la probabilidad estimada de alcanzar tu objetivo de libertad financiera en <b>{años_necesarios} años</b> es alta,
     asumiendo que las condiciones del mercado se mantienen constantes y que los aportes mensuales no cambian. 🎉</p>
 """, unsafe_allow_html=True)
 
