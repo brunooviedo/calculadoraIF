@@ -7,18 +7,6 @@ import plotly.graph_objects as go
 def formatear_clp(numero):
     return f'${int(numero):,}'.replace(',', '.')
 
-# Función para formatear números en formato de miles o millones
-def formatear_miles_millones(numero):
-    if currency == 'CLP':
-        if numero >= 1000000:
-            return f'{int(numero / 1000000):,.0f}M'
-        elif numero >= 1000:
-            return f'{int(numero / 1000):,.0f}K'
-        else:
-            return f'{int(numero):,.0f}'
-    else:
-        return f'{numero:.2f}'
-
 # Título de la aplicación
 st.title('Calculadora de Libertad Financiera')
 
@@ -77,8 +65,12 @@ fig.update_layout(
     title='Crecimiento del Capital a lo Largo del Tiempo',
     xaxis_title='Años',
     yaxis_title=f'Monto ({currency})',
-    legend_title_text='Leyenda'
+    legend_title_text='Leyenda',
+    width=None,  # Ajustar el ancho según el contenedor
+    height=None,  # Ajustar la altura según el contenedor
 )
+
+# Usar use_container_width=True para hacer el gráfico responsive
 st.plotly_chart(fig, use_container_width=True)
 
 # Mostrar la probabilidad estimada de alcanzar la libertad financiera
