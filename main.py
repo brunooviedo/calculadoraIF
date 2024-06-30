@@ -132,7 +132,7 @@ st.plotly_chart(fig, use_container_width=True)
 st.subheader('Estimación de Probabilidad')
 
 # Calcular la probabilidad estimada
-probabilidad_alcanzar = (edad_alcanzada - edad_actual) / (esperanza_vida - edad_actual) * 100
+probabilidad_alcanzar = (esperanza_vida - edad_alcanzada) / (esperanza_vida - edad_actual) * 100
 
 # Formatear el mensaje según la probabilidad calculada
 if probabilidad_alcanzar >= 100:
@@ -145,6 +145,7 @@ elif probabilidad_alcanzar >= 25:
     mensaje_probabilidad = "Tienes una probabilidad baja de alcanzar tu objetivo de libertad financiera 😕"
 else:
     mensaje_probabilidad = "Tienes una probabilidad muy baja de alcanzar tu objetivo de libertad financiera ☹️"
+
 
 st.markdown(f"""
     <p>Teniendo en cuenta las tasas de retorno e inflación seleccionadas,
