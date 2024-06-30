@@ -129,7 +129,9 @@ fig.update_layout(
 st.plotly_chart(fig, use_container_width=True)
 
 # Calcular la probabilidad estimada de alcanzar la libertad financiera
+# Calcular la probabilidad estimada de alcanzar la libertad financiera
 probabilidad_alcanzar = (esperanza_vida - edad_alcanzada) / (esperanza_vida - edad_actual) * 100
+
 
 # Definir el mensaje de acuerdo a la probabilidad
 if probabilidad_alcanzar >= 90:
