@@ -131,22 +131,6 @@ st.plotly_chart(fig, use_container_width=True)
 # Mostrar la probabilidad estimada de alcanzar la libertad financiera
 st.subheader('Estimación de Probabilidad')
 
-# Calcular la probabilidad estimada
-probabilidad_alcanzar = (edad_alcanzada - edad_actual) * 100
-
-
-# Formatear el mensaje según la probabilidad calculada
-if probabilidad_alcanzar >= 100:
-    mensaje_probabilidad = "Tienes una alta probabilidad de alcanzar tu objetivo de libertad financiera 🎉💰"
-elif probabilidad_alcanzar >= 75:
-    mensaje_probabilidad = "Tienes una buena probabilidad de alcanzar tu objetivo de libertad financiera 👍"
-elif probabilidad_alcanzar >= 50:
-    mensaje_probabilidad = "Tienes una probabilidad moderada de alcanzar tu objetivo de libertad financiera 🙂"
-elif probabilidad_alcanzar >= 25:
-    mensaje_probabilidad = "Tienes una probabilidad baja de alcanzar tu objetivo de libertad financiera 😕"
-else:
-    mensaje_probabilidad = "Tienes una probabilidad muy baja de alcanzar tu objetivo de libertad financiera ☹️"
-
 
 st.markdown(f"""
     <p>Teniendo en cuenta las tasas de retorno e inflación seleccionadas,
