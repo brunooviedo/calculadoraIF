@@ -161,3 +161,11 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
+
+# Sección para retroalimentación de usuarios
+st.sidebar.header('Retroalimentación')
+feedback = st.sidebar.text_area('¿Qué te gustaría mejorar en la aplicación?')
+
+if st.sidebar.button('Enviar Retroalimentación'):
+    # Aquí puedes agregar código para procesar el feedback, como enviarlo por correo electrónico o guardarlo en una base de datos
+    st.sidebar.success('¡Gracias por tu retroalimentación!')
