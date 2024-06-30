@@ -58,74 +58,10 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     años_necesarios = i + 1
     edad_alcanzada = edad_actual + años_necesarios
     
-    # Calcular la esperanza de vida según el sexo
-    esperanza_vida = 80 if sexo == 'Hombre' else 85
-    
-    # Calcular años restantes de vida esperada
-    años_restantes_vida = esperanza_vida - edad_alcanzada 
-    
-    # Definir el mensaje de acuerdo a los años restantes
-    if años_restantes_vida > 0:
-        mensaje_vida = f"Tendrías aproximadamente <b>{años_restantes_vida:.1f} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera 🎉💰💸"
-    else:
-        mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto 💀⚰️, debido a la esperanza de vida de {esperanza_vida} años en los {sexo.lower()}."
-
-    return años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida
-
-# Función para formatear números en formato CLP
-def formatear_clp(numero):
-    return f'${int(numero):,}'.replace(',', '.')
-
-# Título de la aplicación
-st.title('Calculadora de Libertad Financiera')
-
-# Entrada de datos
-st.sidebar.header('Parámetros de entrada')
-currency = 'CLP'  # Establecer CLP como moneda por defecto
-
-# Entrada de la edad actual
-edad_actual = st.sidebar.number_input('Edad actual', min_value=0, max_value=100, value=30, step=1)
-
-# Entrada del sexo (para considerar la esperanza de vida)
-sexo = st.sidebar.radio('Sexo', ['Hombre', 'Mujer'])
-
-# Definir la esperanza de vida según el sexo
-if sexo == 'Hombre':
-    esperanza_vida = 80
-else:
-    esperanza_vida = 85
-
-# Entrada del monto inicial
-monto_inicial = st.sidebar.number_input(f'Monto inicial ({currency})', min_value=0.0, value=0.0, step=5000.0, format='%f')
-
-# Entrada del aporte mensual
-aporte_mensual = st.sidebar.number_input(f'Aporte mensual ({currency})', min_value=0.0, value=500.0, step=50.0, format='%f')
-
-# Entrada de tasas de retorno e inflación
-tasa_retorno_anual = st.sidebar.slider('Tasa de retorno anual (%)', min_value=0.0, max_value=20.0, value=7.0, step=0.1) / 100
-tasa_inflacion_anual = st.sidebar.slider('Tasa de inflación anual (%)', min_value=0.0, max_value=10.0, value=2.0, step=0.1) / 100
-
-# Entrada del monto objetivo
-monto_objetivo = st.sidebar.number_input(f'Monto objetivo para la libertad financiera ({currency})', min_value=0.0, value=1000000.0, step=50000.0, format='%f')
-
-# Simulación del crecimiento del capital
-def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida):
-    años = np.arange(1, 201)  # Extender hasta 200 años como máximo
-    capital = np.zeros(200)   # Extender hasta 200 años como máximo
-    capital_inflacion = np.zeros(200)  # Extender hasta 200 años como máximo
-    for i in range(200):  # Extender hasta 200 años como máximo
-        if i == 0:
-            capital[i] = monto_inicial + aporte_mensual * 12
-            capital_inflacion[i] = capital[i]
-        else:
-            capital[i] = (capital[i-1] + aporte_mensual * 12) * (1 + tasa_retorno_anual)
-            capital_inflacion[i] = capital[i] / ((1 + tasa_inflacion_anual) ** (i+1))
-        
-        if capital_inflacion[i] >= monto_objetivo:
-            break
-    
-    años_necesarios = i + 1
-    edad_alcanzada = edad_actual + años_necesarios
+    # Limitar los datos hasta la edad alcanzada
+    años = años[:años_necesarios]
+    capital = capital[:años_necesarios]
+    capital_inflacion = capital_inflacion[:años_necesarios]
     
     # Calcular la esperanza de vida según el sexo
     esperanza_vida = 80 if sexo == 'Hombre' else 85
@@ -138,9 +74,10 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
         mensaje_vida = f"Tendrías aproximadamente <b>{años_restantes_vida:.1f} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera 🎉💰💸"
     else:
         mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto 💀⚰️, debido a la esperanza de vida de {esperanza_vida} años en los {sexo.lower()}."
-
+    
     return años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida
 
+# Llamar a la función para obtener los datos actualizados
 años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida)
 
 # Mostrar resultados
@@ -156,8 +93,8 @@ st.markdown(f"""
 
 # Graficar resultados limitando hasta la edad alcanzada
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital[:años_necesarios], mode='lines', name='Capital acumulado (nominal)'))
-fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital_inflacion[:años_necesarios], mode='lines', name='Capital acumulado (ajustado por inflación)'))
+fig.add_trace(go.Scatter(x=años, y=capital, mode='lines', name='Capital acumulado (nominal)'))
+fig.add_trace(go.Scatter(x=años, y=capital_inflacion, mode='lines', name='Capital acumulado (ajustado por inflación)'))
 fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
 
 # Añadir anotación con icono de ataud y calavera cuando se alcanza la libertad financiera
