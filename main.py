@@ -41,7 +41,7 @@ monto_objetivo = st.sidebar.number_input(f'Monto objetivo para la libertad finan
 
 # Simulación del crecimiento del capital
 def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual):
-    años = np.arange(edad_actual, esperanza_vida + 1)  # Rango de edad desde la actual hasta la esperanza de vida
+    años = np.arange(edad_actual, min(edad_actual + 100, esperanza_vida + 1))  # Limitar hasta 100 años o la esperanza de vida
     capital = np.zeros(len(años))
     capital_inflacion = np.zeros(len(años))
     
@@ -120,6 +120,9 @@ fig.update_layout(
         bgcolor='rgba(255, 255, 255, 0.5)',
         bordercolor='Black',
         borderwidth=1
+    ),
+    xaxis=dict(
+        range=[edad_actual, min(edad_actual + 100, esperanza_vida + 1)]  # Limitar el eje x
     )
 )
 
