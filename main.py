@@ -77,3 +77,5 @@ st.plotly_chart(fig, use_container_width=True)
 # Mostrar la probabilidad estimada de alcanzar la libertad financiera
 st.subheader('Estimación de Probabilidad')
 st.write(f'Teniendo en cuenta las tasas de retorno e inflación seleccionadas, la probabilidad estimada de alcanzar tu objetivo de libertad financiera en {años_necesarios} años es alta, asumiendo que las condiciones del mercado se mantienen constantes y que los aportes mensuales no cambian. 🎉')
+
+# Pregunta de seguimiento relacionada con la optimización de gráficos en dispositivos móviles y tablets
