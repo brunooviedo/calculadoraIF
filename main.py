@@ -92,16 +92,16 @@ st.plotly_chart(fig, use_container_width=True)
 st.subheader('Estimación de Probabilidad')
 st.write(f'Teniendo en cuenta las tasas de retorno e inflación seleccionadas, la probabilidad estimada de alcanzar tu objetivo de libertad financiera en {años_necesarios} años es alta, asumiendo que las condiciones del mercado se mantienen constantes y que los aportes mensuales no cambian. 🎉')
 
-# Incluir CSS y JavaScript para ajustar la leyenda en dispositivos móviles
-st.markdown("""
-<style>
-@media only screen and (max-width: 600px) {
-    .plotly-graph-div .legend {
-        transform: translateY(20px) !important;
-        position: relative !important;
-        padding: 10px !important;
-        margin: 10px !important;
-    }
-}
-</style>
-""", unsafe_allow_html=True)
+# # Incluir CSS y JavaScript para ajustar la leyenda en dispositivos móviles
+# st.markdown("""
+# <style>
+# @media only screen and (max-width: 600px) {
+#     .plotly-graph-div .legend {
+#         transform: translateY(20px) !important;
+#         position: relative !important;
+#         padding: 10px !important;
+#         margin: 10px !important;
+#     }
+# }
+# </style>
+# """, unsafe_allow_html=True)
