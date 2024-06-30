@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import streamlit as st
 import numpy as np
 import plotly.graph_objects as go
@@ -61,33 +60,23 @@ fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objeti
 fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesarios-1],
                    text="🎉", showarrow=True, arrowhead=2, ax=-30, ay=-30)
 
+# Configurar el diseño del gráfico
 fig.update_layout(
     title='Crecimiento del Capital',
     xaxis_title='Años',
     yaxis_title=f'Monto ({currency})',
     margin=dict(l=50, r=50, t=80, b=50),  # Ajustar los márgenes
-)
-
-# Ajustar la visibilidad de las leyendas según el tamaño de la pantalla
-fig.update_layout(
     legend=dict(
         orientation="h",
         yanchor="bottom",
         y=1.02,
         xanchor="right",
         x=1
-    )
-)
-
-# Ajustar margen inferior del título para dispositivos móviles
-fig.update_layout(
-    title=dict(
-        font=dict(
-            size=24,  # Tamaño del título
-        ),
-        margin=dict(
-            b=20  # Margen inferior del título
-        )
+    ),
+    title_font=dict(
+        size=24,  # Tamaño del título
+        family="Arial, sans-serif",
+        color="black"
     )
 )
 
