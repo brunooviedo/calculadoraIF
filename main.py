@@ -29,23 +29,7 @@ monto_objetivo = st.sidebar.number_input(f'Monto objetivo para la libertad finan
 
 # Simulación del crecimiento del capital
 def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo):
-    años = np.arange(1, 201)  # Extender hasta 200 años como máximo
-    capital = np.zeros(200)   # Extender hasta 200 años como máximo
-    capital_inflacion = np.zeros(200)  # Extender hasta 200 años como máximo
-    for i in range(200):  # Extender hasta 200 años como máximo
-        if i == 0:
-            capital[i] = monto_inicial + aporte_mensual * 12
-            capital_inflacion[i] = capital[i]
-        else:
-            capital[i] = (capital[i-1] + aporte_mensual * 12) * (1 + tasa_retorno_anual)
-            capital_inflacion[i] = capital[i] / ((1 + tasa_inflacion_anual) ** (i+1))
-        
-        if capital_inflacion[i] >= monto_objetivo:
-            break
-    
-    return años[:i+1], capital[:i+1], capital_inflacion[:i+1], i+1
-
-años, capital, capital_inflacion, años_necesarios = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo)
+    # ... (código anterior)
 
 # Mostrar resultados
 st.subheader('Resultados')
@@ -53,33 +37,19 @@ st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente, c
 
 # Graficar resultados
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=años, y=capital, mode='lines', name='Capital acumulado (nominal)'))
-fig.add_trace(go.Scatter(x=años, y=capital_inflacion, mode='lines', name='Capital acumulado (ajustado por inflación)'))
-fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
-
-# Añadir anotación con icono de fiesta cuando se alcanza la libertad financiera
-fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesarios-1],
-                   text="🎉", showarrow=True, arrowhead=2, ax=-30, ay=-30)
-
-fig.update_layout(
-    title='Crecimiento del Capital',
-    xaxis_title='Años',
-    yaxis_title=f'Monto ({currency})',
-    margin=dict(l=50, r=50, t=80, b=50),  # Ajustar los márgenes
-)
+# ... (código anterior)
 
 # Ajustar la visibilidad de las leyendas según el tamaño de la pantalla
-if st._is_running_with_streamlit:
-    if st._is_running_with_streamlit:
-        fig.update_layout(
-            legend=dict(
-                orientation="h",
-                yanchor="bottom",
-                y=1.02,
-                xanchor="right",
-                x=1
-            )
+if st.get_option('client.showWarnings'):
+    fig.update_layout(
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
         )
+    )
 else:
     fig.update_layout(
         legend=dict(
