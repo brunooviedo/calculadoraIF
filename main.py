@@ -65,19 +65,19 @@ fig.update_layout(
     title='Crecimiento del Capital a lo Largo del Tiempo',
     xaxis_title='Años',
     yaxis_title=f'Monto ({currency})',
-    legend_title_text='Leyenda',
     margin=dict(l=50, r=50, t=80, b=50),  # Ajustar los márgenes
 )
 
-# Ajustar el ancho de las leyendas para dispositivos móviles
-if st._is_running_with_streamlit:
-    fig.update_layout(legend=dict(
+# Ajustar la visibilidad de las leyendas según el tamaño de la pantalla
+fig.update_layout(
+    legend=dict(
         orientation="h",
         yanchor="bottom",
         y=1.02,
         xanchor="right",
         x=1
-    ))
+    )
+)
 
 # Usar use_container_width=True para hacer el gráfico responsive
 st.plotly_chart(fig, use_container_width=True)
