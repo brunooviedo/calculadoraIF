@@ -66,7 +66,7 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     edad_alcanzada = edad_actual + años[-1]
     
     # Definir el mensaje de acuerdo a los años restantes
-    años_restantes_vida = esperanza_vida - edad_alcanzada 
+    años_restantes_vida = esperanza_vida - edad_alcanzada
     if años_restantes_vida > 0:
         mensaje_vida = f"Tendrías aproximadamente <b>{años_restantes_vida:.1f} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera 🎉💰💸"
     else:
