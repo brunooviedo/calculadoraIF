@@ -54,6 +54,10 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
             capital_inflacion[i] = capital[i] / ((1 + tasa_inflacion_anual) ** (i+1))
         
         if capital_inflacion[i] >= monto_objetivo:
+            # Ajustar los arrays para detener el crecimiento una vez alcanzado el objetivo
+            años = años[:i+1]
+            capital = capital[:i+1]
+            capital_inflacion = capital_inflacion[:i+1]
             break
     
     años_necesarios = i + 1
@@ -69,6 +73,7 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
         mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto 💀⚰️, debido a la esperanza de vida de {esperanza_vida} años en los {sexo.lower()}."
     
     return años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida
+
 
 # Llamar a la función para obtener los datos de simulación
 años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual)
