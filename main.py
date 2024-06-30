@@ -79,6 +79,18 @@ fig.update_layout(
     )
 )
 
+# Ajustar margen inferior del título para dispositivos móviles
+fig.update_layout(
+    title=dict(
+        font=dict(
+            size=24,  # Tamaño del título
+        ),
+        margin=dict(
+            b=20  # Margen inferior del título
+        )
+    )
+)
+
 # Usar use_container_width=True para hacer el gráfico responsive
 st.plotly_chart(fig, use_container_width=True)
 
