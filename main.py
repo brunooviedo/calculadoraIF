@@ -77,7 +77,7 @@ fig.update_layout(
         yanchor="bottom",
         y=-0.7,  # Ajustar esta posición para centrar verticalmente la leyenda
         xanchor="center",
-        x=0.7,  # Ajustar esta posición para centrar horizontalmente la leyenda
+        x=0.5,  # Ajustar esta posición para centrar horizontalmente la leyenda
         font=dict(size=10),  # Disminuir el tamaño de la fuente
         bgcolor='rgba(255, 255, 255, 0.5)',
         bordercolor='Black',
