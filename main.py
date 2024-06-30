@@ -93,8 +93,8 @@ fig.add_trace(go.Scatter(x=años, y=capital_inflacion, mode='lines', name='Capit
 fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
 
 # Añadir anotación con icono de fiesta cuando se alcanza la libertad financiera
-fig.add_annotation(x=edad_alcanzada, y=capital_inflacion[años_necesarios-1],
-                   text="🎉💰", showarrow=True, arrowhead=2, ax=-30, ay=-30)
+fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesarios-1],
+                   text="🎉", showarrow=True, arrowhead=2, ax=-30, ay=-30)
 
 # Ajustar el layout del gráfico incluyendo padding y margin para la leyenda y el título
 fig.update_layout(
