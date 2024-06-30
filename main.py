@@ -4,6 +4,8 @@ import numpy as np
 import plotly.graph_objects as go
 # Importar el módulo de formulario de Streamlit
 import streamlit as st
+# Importar la librería plotly express para gráficos interactivos
+import plotly.express as px
 
 # Función para formatear números en formato CLP
 def formatear_clp(numero):
@@ -163,6 +165,51 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
+
+# Sección para comparación de escenarios
+st.sidebar.header('Comparación de Escenarios')
+
+# Variables ajustables
+niveles_aporte = st.sidebar.slider('Niveles de Aporte Mensual', min_value=100, max_value=2000, value=[500, 1000], step=100)
+tasas_retorno = st.sidebar.slider('Tasas de Retorno Anual (%)', min_value=0.0, max_value=15.0, value=[5.0, 10.0], step=0.5)
+
+# Función para calcular los resultados según los escenarios seleccionados
+def calcular_escenarios(aporte_min, aporte_max, tasa_min, tasa_max):
+    # Aquí deberías modificar según tu función actual de cálculo de libertad financiera para considerar diferentes escenarios
+    años_min, capital_min, capital_inflacion_min, _, _, _ = calcular_libertad_financiera(monto_inicial, aporte_min, tasa_min/100, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual)
+    años_max, capital_max, capital_inflacion_max, _, _, _ = calcular_libertad_financiera(monto_inicial, aporte_max, tasa_max/100, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual)
+    
+    return años_min, capital_inflacion_min, años_max, capital_inflacion_max
+
+# Llamar a la función para obtener los datos de simulación
+años_min, capital_inflacion_min, años_max, capital_inflacion_max = calcular_escenarios(niveles_aporte[0], niveles_aporte[1], tasas_retorno[0], tasas_retorno[1])
+
+# Graficar resultados comparativos
+fig_comp = px.line()
+fig_comp.add_scatter(x=años_min + edad_actual, y=capital_inflacion_min, mode='lines', name=f'Aporte: {niveles_aporte[0]}, Retorno: {tasas_retorno[0]}%')
+fig_comp.add_scatter(x=años_max + edad_actual, y=capital_inflacion_max, mode='lines', name=f'Aporte: {niveles_aporte[1]}, Retorno: {tasas_retorno[1]}%')
+
+# Configurar diseño y estilo del gráfico comparativo
+fig_comp.update_layout(
+    title='Comparación de Escenarios Financieros',
+    xaxis_title='Edad',
+    yaxis_title=f'Monto ({currency})',
+    legend_title='Escenarios',
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.02,
+        xanchor="right",
+        x=1
+    ),
+    margin=dict(l=80, r=50, t=100, b=100),
+    xaxis=dict(
+        range=[0, 100]
+    )
+)
+
+# Mostrar el gráfico comparativo en la aplicación
+st.plotly_chart(fig_comp, use_container_width=True)
 
 # Sección para retroalimentación de usuarios
 st.sidebar.header('Retroalimentación')
