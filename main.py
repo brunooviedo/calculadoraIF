@@ -40,7 +40,7 @@ tasa_inflacion_anual = st.sidebar.slider('Tasa de inflación anual (%)', min_val
 monto_objetivo = st.sidebar.number_input(f'Monto objetivo para la libertad financiera ({currency})', min_value=0.0, value=1000000.0, step=50000.0, format='%f')
 
 # Simulación del crecimiento del capital
-def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida):
+def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo):
     años = np.arange(1, 201)  # Extender hasta 200 años como máximo
     capital = np.zeros(200)   # Extender hasta 200 años como máximo
     capital_inflacion = np.zeros(200)  # Extender hasta 200 años como máximo
@@ -54,6 +54,10 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
         
         if capital_inflacion[i] >= monto_objetivo:
             break
+    
+    return años[:i+1], capital[:i+1], capital_inflacion[:i+1], i+1
+
+años, capital, capital_inflacion, años_necesarios = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo)
     
     años_necesarios = i + 1
     
