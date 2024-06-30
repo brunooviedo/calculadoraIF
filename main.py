@@ -49,7 +49,7 @@ años, capital, capital_inflacion, años_necesarios = calcular_libertad_financie
 
 # Mostrar resultados
 st.subheader('Resultados')
-st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente, comienzas con un monto inicial de {formatear_clp(monto_inicial)} {currency}, con una tasa de retorno anual del {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {formatear_clp(monto_objetivo)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación). 🎉')
+st.write(f'Si aportas {formatear_clp(aporte_mensual)} {currency} mensualmente,  comienzas con un monto inicial de  {formatear_clp (monto_inicial)}  {currency},  con una tasa de retorno anual del  {tasa_retorno_anual*100:.2f}% y una tasa de inflación anual del {tasa_inflacion_anual*100:.2f}%, alcanzarás tu objetivo de libertad financiera de {formatear_clp(monto_objetivo)} {currency} en aproximadamente {años_necesarios} años (ajustado por inflación). 🎉')
 
 # Graficar resultados
 fig = go.Figure()
@@ -90,4 +90,4 @@ st.plotly_chart(fig, use_container_width=True)
 
 # Mostrar la probabilidad estimada de alcanzar la libertad financiera
 st.subheader('Estimación de Probabilidad')
-st.write(f'Teniendo en cuenta las tasas de retorno e inflación seleccionadas, la probabilidad estimada de alcanzar tu objetivo de libertad financiera en {años_necesarios} años es alta, asumiendo que las condiciones del mercado se mantienen constantes y que los aportes mensuales no cambian. 🎉')
+st.write(f'Teniendo en cuenta las tasas de retorno e inflación seleccionadas, la probabilidad estimada de alcanzar tu objetivo de libertad financiera en **{años_necesarios} años** es alta, asumiendo que las condiciones del mercado se mantienen constantes y que los aportes mensuales no cambian. 🎉')
