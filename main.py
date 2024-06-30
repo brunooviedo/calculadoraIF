@@ -65,7 +65,7 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     años_restantes_vida = edad_actual - esperanza_vida
     
     # Definir el mensaje de acuerdo a los años restantes
-    if años_restantes_vida < 0:
+    if años_restantes_vida > 0:
         if sexo == 'Hombre':
             mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto ☠️, debido a la esperanza de vida de {esperanza_vida} años en los Hombres."
         else:
