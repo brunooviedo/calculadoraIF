@@ -71,6 +71,12 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
 
 años, capital, capital_inflacion, años_necesarios, probabilidad_alcanzar, edad_alcanzada = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida)
 
+# Calcular la esperanza de vida según el sexo
+esperanza_vida = 80 if sexo == 'Hombre' else 85
+
+# Calcular años restantes de vida esperada
+años_restantes_vida = esperanza_vida - edad_actual
+
 # Mostrar resultados
 st.subheader('Resultados')
 st.markdown(f"""
