@@ -75,7 +75,7 @@ fig.update_layout(
     legend=dict(
         orientation="h",
         yanchor="bottom",
-        y=-0.52,  # Ajustar esta posición para centrar verticalmente la leyenda
+        y=-0.51,  # Ajustar esta posición para centrar verticalmente la leyenda
         xanchor="center",
         x=0.5,  # Ajustar esta posición para centrar horizontalmente la leyenda
         font=dict(size=10),  # Disminuir el tamaño de la fuente
