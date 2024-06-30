@@ -14,6 +14,9 @@ st.title('Calculadora de Libertad Financiera')
 st.sidebar.header('Parámetros de entrada')
 currency = 'CLP'  # Establecer CLP como moneda por defecto
 
+# Entrada de la edad actual
+edad_actual = st.sidebar.number_input('Edad actual', min_value=0, max_value=100, value=30, step=1)
+
 # Entrada del monto inicial
 monto_inicial = st.sidebar.number_input(f'Monto inicial ({currency})', min_value=0.0, value=0.0, step=5000.0, format='%f')
 
@@ -47,13 +50,17 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
 
 años, capital, capital_inflacion, años_necesarios = calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo)
 
+# Calcular la edad al alcanzar la libertad financiera
+edad_alcanzada = edad_actual + años_necesarios
+
 # Mostrar resultados
 st.subheader('Resultados')
 st.markdown(f"""
     <p>Si aportas <b>{formatear_clp(aporte_mensual)} {currency}</b> mensualmente,
     y comienzas con un monto inicial de <b>{formatear_clp(monto_inicial)} {currency}</b>,
     con una tasa de retorno anual del <b>{tasa_retorno_anual*100:.2f}%</b> y una tasa de inflación anual del <b>{tasa_inflacion_anual*100:.2f}%</b>,
-    alcanzarás tu objetivo de libertad financiera de <b>{formatear_clp(monto_objetivo)} {currency}</b> en aproximadamente <b>{años_necesarios} años</b> (ajustado por inflación). 🎉</p>
+    alcanzarás tu objetivo de libertad financiera de <b>{formatear_clp(monto_objetivo)} {currency}</b> en aproximadamente <b>{años_necesarios} años</b> (ajustado por inflación).
+    Para ese momento, tendrás <b>{edad_alcanzada} años</b>. 🎉</p>
 """, unsafe_allow_html=True)
 
 # Graficar resultados
