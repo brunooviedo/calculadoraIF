@@ -66,6 +66,7 @@ fig.update_layout(
     xaxis_title='Años',
     yaxis_title=f'Monto ({currency})',
     legend_title_text='Leyenda',
+    margin=dict(l=50, r=50, t=80, b=50),  # Ajustar los márgenes
     width=None,  # Ajustar el ancho según el contenedor
     height=None,  # Ajustar la altura según el contenedor
 )
