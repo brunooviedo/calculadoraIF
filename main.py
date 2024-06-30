@@ -93,7 +93,7 @@ fig.add_trace(go.Scatter(x=años[:años_necesarios], y=capital_inflacion[:años_
 fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
 
 # Añadir anotación con icono de ataud y calavera cuando se alcanza la libertad financiera
-fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesarios-1],
+fig.add_annotation(x=edad_alcanzada, y=capital_inflacion[años_necesarios-1],
                    text="💀⚰️", showarrow=True, arrowhead=2, ax=-30, ay=-30)
 
 # Ajustar el layout del gráfico incluyendo padding y margin para la leyenda y el título
@@ -104,7 +104,7 @@ fig.update_layout(
     title_xanchor='center',
     title_yanchor='top',
     title_font=dict(size=15, family='Arial'),
-    xaxis_title='Años',
+    xaxis_title='Edad',
     yaxis_title=f'Monto ({currency})',
     margin=dict(l=80, r=50, t=100, b=100),  # Ajustar los márgenes
     legend=dict(
@@ -121,7 +121,7 @@ fig.update_layout(
 )
 
 # Limitar el eje x hasta la edad alcanzada
-fig.update_xaxes(range=[0, años_necesarios])
+fig.update_xaxes(range=[0, edad_alcanzada])
 
 # Usar use_container_width=True para hacer el gráfico responsive
 st.plotly_chart(fig, use_container_width=True)
