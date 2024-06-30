@@ -41,7 +41,7 @@ monto_objetivo = st.sidebar.number_input(f'Monto objetivo para la libertad finan
 
 # Simulación del crecimiento del capital
 def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anual, tasa_inflacion_anual, monto_objetivo, esperanza_vida, edad_actual):
-    años = np.arange(edad_actual, min(edad_actual + 100, esperanza_vida + 1))  # Limitar hasta 100 años o la esperanza de vida
+    años = np.arange(0, min(100, esperanza_vida - edad_actual + 1))  # Rango de edad desde 0 hasta 100 años o la esperanza de vida restante
     capital = np.zeros(len(años))
     capital_inflacion = np.zeros(len(años))
     
@@ -91,12 +91,12 @@ st.markdown(f"""
 
 # Graficar resultados
 fig = go.Figure()
-fig.add_trace(go.Scatter(x=años, y=capital, mode='lines', name='Capital acumulado (nominal)'))
-fig.add_trace(go.Scatter(x=años, y=capital_inflacion, mode='lines', name='Capital acumulado (ajustado por inflación)'))
+fig.add_trace(go.Scatter(x=años + edad_actual, y=capital, mode='lines', name='Capital acumulado (nominal)'))
+fig.add_trace(go.Scatter(x=años + edad_actual, y=capital_inflacion, mode='lines', name='Capital acumulado (ajustado por inflación)'))
 fig.add_hline(y=monto_objetivo, line_color='red', line_dash='dash', name='Objetivo de libertad financiera')
 
 # Añadir anotación con icono de fiesta cuando se alcanza la libertad financiera
-fig.add_annotation(x=edad_alcanzada, y=capital_inflacion[años_necesarios-1],
+fig.add_annotation(x=edad_alcanzada + edad_actual, y=capital_inflacion[años_necesarios-1],
                    text="🎉💰", showarrow=True, arrowhead=2, ax=-30, ay=-30)
 
 # Ajustar el layout del gráfico incluyendo padding y margin para la leyenda y el título
@@ -122,7 +122,7 @@ fig.update_layout(
         borderwidth=1
     ),
     xaxis=dict(
-        range=[edad_actual, min(edad_actual + 100, esperanza_vida + 1)]  # Limitar el eje x
+        range=[edad_actual, edad_actual + min(100, esperanza_vida - edad_actual + 1)]  # Limitar el eje x
     )
 )
 
