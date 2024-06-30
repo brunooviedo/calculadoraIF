@@ -62,7 +62,7 @@ fig.add_annotation(x=años[años_necesarios-1], y=capital_inflacion[años_necesa
                    text="🎉", showarrow=True, arrowhead=2, ax=-30, ay=-30)
 
 fig.update_layout(
-    title='Crecimiento del Capital a lo Largo del Tiempo',
+    title='Crecimiento del Capital',
     xaxis_title='Años',
     yaxis_title=f'Monto ({currency})',
     margin=dict(l=50, r=50, t=80, b=50),  # Ajustar los márgenes
