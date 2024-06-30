@@ -62,16 +62,16 @@ def calcular_libertad_financiera(monto_inicial, aporte_mensual, tasa_retorno_anu
     esperanza_vida = 80 if sexo == 'Hombre' else 85
     
     # Calcular años restantes de vida esperada
-    años_restantes_vida = max(0, esperanza_vida - edad_alcanzada)
+    años_restantes_vida = esperanza_vida - edad_alcanzada 
     
     # Definir el mensaje de acuerdo a los años restantes
     if años_restantes_vida > 0:
-        if sexo == 'Hombre':
-            mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerto ☠️, debido a la esperanza de vida de {esperanza_vida} años en los Hombres."
-        else:
-            mensaje_vida = f"Probablemente no alcances a disfrutar la libertad financiera, ya que estarías muerta ☠️, debido a la esperanza de vida de {esperanza_vida} años en las Mujeres."
+        mensaje_vida = f"Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera. 🎉"
     else:
-        mensaje_vida = f"Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{abs(años_restantes_vida)} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera. 🎉"
+        if sexo == 'Hombre':
+            mensaje_vida = f"Tendrías aproximadamente <b>{abs(años_restantes_vida)} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera, pero probablemente no alcances a disfrutarla debido a la esperanza de vida de {esperanza_vida} años en los Hombres."
+        else:
+            mensaje_vida = f"Tendrías aproximadamente <b>{abs(años_restantes_vida)} años</b> de vida esperados restantes una vez alcanzada la Libertad Financiera, pero probablemente no alcances a disfrutarla debido a la esperanza de vida de {esperanza_vida} años en las Mujeres."
     
     return años, capital, capital_inflacion, años_necesarios, edad_alcanzada, mensaje_vida
 
