@@ -78,8 +78,10 @@ st.markdown(f"""
     y comienzas con un monto inicial de <b>{formatear_clp(monto_inicial)} {currency}</b>,
     con una tasa de retorno anual del <b>{tasa_retorno_anual*100:.2f}%</b> y una tasa de inflación anual del <b>{tasa_inflacion_anual*100:.2f}%</b>,
     alcanzarás tu objetivo de libertad financiera de <b>{formatear_clp(monto_objetivo)} {currency}</b> en aproximadamente <b>{años_necesarios} años</b> (ajustado por inflación).
-    Para ese momento, tendrás <b>{edad_alcanzada} años</b> y la probabilidad estimada de alcanzar este objetivo es del <b>{probabilidad_alcanzar*100:.2f}%</b>. 🎉</p>
+    Para ese momento, tendrás <b>{edad_alcanzada} años</b> y la probabilidad estimada de alcanzar este objetivo es del <b>{probabilidad_alcanzar*100:.2f}%</b>.
+    Considerando la esperanza de vida correspondiente ({esperanza_vida} años para {sexo.lower()}), tienes aproximadamente <b>{años_restantes_vida} años</b> de vida esperados restantes. 🎉</p>
 """, unsafe_allow_html=True)
+
 
 # Graficar resultados
 fig = go.Figure()
