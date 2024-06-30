@@ -75,10 +75,10 @@ fig.update_layout(
     legend=dict(
         orientation="h",
         yanchor="bottom",
-        y=1.02,
-        xanchor="right",
-        x=1,
-        font=dict(size=12),
+        y=-0.3,  # Ajustar esta posición para centrar verticalmente la leyenda
+        xanchor="center",
+        x=0.5,  # Ajustar esta posición para centrar horizontalmente la leyenda
+        font=dict(size=10),  # Disminuir el tamaño de la fuente
         bgcolor='rgba(255, 255, 255, 0.5)',
         bordercolor='Black',
         borderwidth=1
