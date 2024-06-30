@@ -132,7 +132,7 @@ st.plotly_chart(fig, use_container_width=True)
 st.subheader('Estimación de Probabilidad')
 
 # Calcular la probabilidad estimada
-probabilidad_alcanzar = (edad_alcanzada - edad_actual) / (esperanza_vida - edad_alcanzada) * 100
+probabilidad_alcanzar = (edad_alcanzada - edad_actual) * 100
 
 
 # Formatear el mensaje según la probabilidad calculada
