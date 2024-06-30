@@ -131,6 +131,18 @@ st.plotly_chart(fig, use_container_width=True)
 # Mostrar la probabilidad estimada de alcanzar la libertad financiera
 st.subheader('Estimación de Probabilidad')
 
+# Calcular la probabilidad de alcanzar la libertad financiera
+probabilidad_alcanzar = (1 - (capital_inflacion[-1] / monto_objetivo)) * 100
+
+# Definir el mensaje de acuerdo a la probabilidad
+if probabilidad_alcanzar >= 90:
+    mensaje_probabilidad = "Tienes una muy alta probabilidad de alcanzar tu objetivo de libertad financiera. 🚀"
+elif probabilidad_alcanzar >= 70:
+    mensaje_probabilidad = "Tienes una buena probabilidad de alcanzar tu objetivo de libertad financiera. 👍"
+elif probabilidad_alcanzar >= 50:
+    mensaje_probabilidad = "Tienes una probabilidad moderada de alcanzar tu objetivo de libertad financiera. 🤔"
+else:
+    mensaje_probabilidad = "Tu probabilidad de alcanzar tu objetivo de libertad financiera es baja. Quizás deberías ajustar tus parámetros. 😕"
 
 st.markdown(f"""
     <p>Teniendo en cuenta las tasas de retorno e inflación seleccionadas,
